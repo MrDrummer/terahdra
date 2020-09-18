@@ -1,0 +1,13 @@
+{
+  "hosting": [
+    {
+      "target": "terahdra-site",
+      "public": "site/dist/pwa",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}

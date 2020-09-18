@@ -1,0 +1,23 @@
+{
+  "projects": {
+    "default": "terahdra-test",
+    "test": "terahdra-test",
+    "prod": "terahdra-prod"
+  },
+  "targets": {
+    "terahdra-test": {
+      "hosting": {
+        "terahdra-site": [
+          "terahdra-test"
+        ]
+      }
+    },
+    "terahdra-prod": {
+      "hosting": {
+        "terahdra-site": [
+          "terahdra-prod"
+        ]
+      }
+    }
+  }
+}
