@@ -1,0 +1,22 @@
+steps:
+  - name: node:10.21.0
+    entrypoint: yarn
+    dir: "site"
+  - name: node:10.21.0
+    entrypoint: yarn
+    dir: "site"
+    args:
+      - run
+      - build:${_PROJECT}
+    env:
+      - TAG_NAME=$TAG_NAME
+      - COMMIT=$SHORT_SHA
+  - name: gcr.io/$PROJECT_ID/firebase
+    args:
+      - deploy
+      - -P
+      - ${_PROJECT}
+      - --only
+      - hosting:terahdra-site
+      - --token
+      - ${_FIREBASE_TOKEN}
