@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
-
+const webpack = require('webpack')
 module.exports = function (/* ctx */) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
@@ -71,6 +71,17 @@ module.exports = function (/* ctx */) {
           loader: 'eslint-loader',
           exclude: /node_modules/
         })
+      },
+      chainWebpack (chain, { isClient }) {
+        chain.module.rule('pug')
+          .test(/\.pug$/)
+          .use('pug-loader').loader('pug-plain-loader')
+
+        chain.module.rule('eslint')
+          .enforce('pre')
+          .test(/\.(js|vue)$/)
+          .exclude.add(/node_modules|\.md\.js/).end()
+          .use('eslint-loader').loader('eslint-loader')
       }
     },
 
