@@ -32,7 +32,9 @@
           :key="link.title"
           v-bind="link"
         )
-
+    .fixed-bottom-right.text-caption.q-pa-xs.text-grey-5(
+      style="z-index:1"
+    ) {{getVersion()}}
     q-page-container
       router-view
 </template>
@@ -92,6 +94,11 @@ export default {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
+    }
+  },
+  methods: {
+    getVersion () {
+      return process.env.version || 'Dev'
     }
   }
 }

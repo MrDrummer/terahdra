@@ -7,6 +7,8 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 const webpack = require('webpack')
+const envparsers = require('./config/envparser')
+
 module.exports = function (/* ctx */) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
@@ -46,22 +48,12 @@ module.exports = function (/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
-
-      // transpile: false,
-
-      // Add dependencies for transpiling with Babel (Array of string/regex)
-      // (from node_modules, which are by default not transpiled).
-      // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
-
-      // rtl: false, // https://quasar.dev/options/rtl-support
-      // preloadChunks: true,
-      // showProgress: false,
-      // gzip: true,
-      // analyze: true,
-
-      // Options below are automatically set depending on the env, set them if you want to override
-      // extractCSS: false,
+      scopeHoisting: true,
+      env: Object.assign({
+        version: process.env.TAG_NAME === '' ? process.env.COMMIT : process.env.TAG_NAME,
+        isTest: process.env.target === 'test',
+        isProd: process.env.target === 'prod'
+      }, envparsers()),
 
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack (cfg) {
