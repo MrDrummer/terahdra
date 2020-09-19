@@ -6,7 +6,6 @@ steps:
     entrypoint: yarn
     dir: "site"
     args:
-      - run
       - build:${_PROJECT}
     env:
       - TAG_NAME=$TAG_NAME
