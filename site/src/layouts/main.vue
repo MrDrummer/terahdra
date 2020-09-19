@@ -12,91 +12,92 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          @click="burgerClick"
         )
         q-toolbar-title
           | Quasar App
-    q-drawer(
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    )
-      q-list
-        q-item-label.text-grey-8(
-          header
-        )
-          | Essential Links
-        EssentialLink(
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        )
     .fixed-bottom-right.text-caption.q-pa-xs.text-grey-5(
       style="z-index:1"
     ) {{getVersion()}}
     q-page-container
       router-view
+    side-menu(
+      :menu-items="menuItems"
+    )
+    radial-menu-modal(
+      :menu-items="menuItems"
+    )
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+import radialmenumodal from '../components/menu/RadialMenuModal'
+import sidemenu from '../components/menu/SideMenu'
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: {
+    RadialMenuModal: radialmenumodal,
+    SideMenu: sidemenu
+  },
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      radialOpen: false,
+      sideMenuOpen: false,
+      menuItems: [
+        {
+          title: 'Home',
+          caption: 'Home',
+          icon: 'fas fa-shield-alt',
+          link: '/'
+        },
+        {
+          title: 'Watch',
+          caption: 'Go to Twitch',
+          icon: 'fas fa-tv',
+          link: 'https://twitch.tv/terahdra'
+        },
+        {
+          title: 'Social',
+          caption: 'forum.quasar.dev',
+          icon: 'fab fa-twitter',
+          link: '/social'
+        },
+        {
+          title: 'About',
+          caption: '@QuasarFramework',
+          icon: 'fas fa-user',
+          link: 'https://facebook.quasar.dev'
+        },
+        {
+          title: 'Stats',
+          caption: '@QuasarFramework',
+          icon: 'fas fa-chart-line',
+          link: 'https://facebook.quasar.dev'
+        },
+        {
+          title: 'Squad',
+          caption: 'chat.quasar.dev',
+          icon: 'fas fa-user-friends',
+          link: '/squad'
+        },
+        {
+          title: 'Merch',
+          caption: 'Community Quasar projects',
+          icon: 'fas fa-shopping-bag',
+          link: 'https://awesome.quasar.dev'
+        }
+      ]
     }
   },
   methods: {
+    burgerClick () {
+      // Shield nav
+      if (this.$q.screen.gt.sm) {
+        this.radialOpen = !this.radialOpen
+      } else { // Burger bar nav
+        this.sideMenuOpen = !this.sideMenuOpen
+      }
+    },
     getVersion () {
       return process.env.version || 'Dev'
     }
