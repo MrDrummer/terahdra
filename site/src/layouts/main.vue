@@ -15,16 +15,18 @@
           @click="burgerClick"
         )
         q-toolbar-title
-          | Quasar App
+          | Terahdra's Armament
     .fixed-bottom-right.text-caption.q-pa-xs.text-grey-5(
       style="z-index:1"
     ) {{getVersion()}}
     q-page-container
       router-view
     side-menu(
+      v-model="sideMenuOpen"
       :menu-items="menuItems"
     )
     radial-menu-modal(
+      v-model="radialOpen"
       :menu-items="menuItems"
     )
 </template>
@@ -54,37 +56,41 @@ export default {
           title: 'Watch',
           caption: 'Go to Twitch',
           icon: 'fas fa-tv',
-          link: 'https://twitch.tv/terahdra'
+          link: 'https://twitch.tv/terahdra',
+          external: true
         },
         {
           title: 'Social',
-          caption: 'forum.quasar.dev',
+          caption: 'Other social profiles',
           icon: 'fab fa-twitter',
           link: '/social'
         },
         {
           title: 'About',
-          caption: '@QuasarFramework',
+          caption: 'About me',
           icon: 'fas fa-user',
-          link: 'https://facebook.quasar.dev'
+          link: '/about'
         },
         {
           title: 'Stats',
-          caption: '@QuasarFramework',
+          caption: 'Cool stats',
           icon: 'fas fa-chart-line',
-          link: 'https://facebook.quasar.dev'
+          link: '/stats'
         },
         {
           title: 'Squad',
-          caption: 'chat.quasar.dev',
+          caption: 'Other Twitch streamers in my Squad',
           icon: 'fas fa-user-friends',
-          link: '/squad'
+          link: 'https://www.twitch.tv/team/cephalopodsquad',
+          external: true
         },
         {
           title: 'Merch',
-          caption: 'Community Quasar projects',
+          caption: 'My Merch store',
           icon: 'fas fa-shopping-bag',
-          link: 'https://awesome.quasar.dev'
+          // link: 'https://shop.terahdra.com'
+          link: 'https://armament-equipment.myshopify.com/',
+          external: true
         }
       ]
     }
@@ -94,8 +100,10 @@ export default {
       // Shield nav
       if (this.$q.screen.gt.sm) {
         this.radialOpen = !this.radialOpen
+        this.sideMenuOpen = false
       } else { // Burger bar nav
         this.sideMenuOpen = !this.sideMenuOpen
+        this.radialOpen = false
       }
     },
     getVersion () {
