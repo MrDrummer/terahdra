@@ -1,6 +1,7 @@
 <template lang="pug">
   q-drawer(
-    v-model="opened"
+    :value="value"
+    @input="input"
     show-if-above
     bordered
     content-class="bg-grey-1"
@@ -8,13 +9,28 @@
     q-list
       q-item-label.text-grey-8(
         header
+      ) Terahdra's Armament
+      q-item(
+        v-for="(link, index) in menuItems"
+        :class="$route.path.startsWith(link.link) ? 'link-match' : ''"
+        :key="index"
+        tag="a"
+        :href="link.link"
+        clickable
       )
-        | Essential Links
-      //- EssentialLink(
-      //-   v-for="link in essentialLinks"
-      //-   :key="link.title"
-      //-   v-bind="link"
-      //- )
+        q-item-section(
+          avatar
+        )
+          q-icon(
+            :name="link.icon"
+          )
+        q-item-section
+          q-item-label
+            | {{ link.title }}
+          q-item-label(
+            caption
+          )
+            | {{ link.caption }}
 </template>
 
 <script>
@@ -23,20 +39,22 @@ import { RadialMenu, RadialMenuItem } from 'vue-radial-menu'
 export default {
   name: 'NavMenu',
   components: { RadialMenu, RadialMenuItem },
-  data () {
-    return {
-      opened: this.open
-    }
-  },
   props: {
-    open: {
-      type: Boolean,
-      default: false
+    value: {
+      type: Boolean
     },
     menuItems: {
       type: Array,
       default: () => ([])
     }
+  },
+  methods: {
+    input (opened) {
+      this.$emit('input', opened)
+    }
+  },
+  mounted () {
+    console.log('this.$route :', this.$route)
   }
 }
 </script>
@@ -44,4 +62,6 @@ export default {
 <style lang="stylus">
 .vue-radial-menu-item
   box-shadow none
+.link-match
+  font-weight bold
 </style>
