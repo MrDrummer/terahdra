@@ -4,7 +4,20 @@ const routes = [
     path: '/',
     component: () => import('layouts/main.vue'),
     children: [
-      { path: '', component: () => import('pages/home.vue') }
+      {
+        path: '',
+        component: () => import('pages/home.vue'),
+        meta: {
+          title: 'Home'
+        }
+      },
+      {
+        path: '/social',
+        component: () => import('pages/social.vue'),
+        meta: {
+          title: 'Social'
+        }
+      }
     ]
   },
 
