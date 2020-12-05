@@ -31,6 +31,14 @@
             caption
           )
             | {{ link.caption }}
+        q-item-section(
+          v-if="link.external"
+          avatar
+        )
+          q-icon(
+            name="fas fa-link"
+            size="xs"
+          )
 </template>
 
 <script>

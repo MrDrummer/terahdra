@@ -30,6 +30,9 @@ export default {
   name: 'NavMenu',
   components: { RadialMenu, RadialMenuItem },
   props: {
+    value: {
+      type: Boolean
+    },
     menuItems: {
       type: Array,
       default: () => ([])

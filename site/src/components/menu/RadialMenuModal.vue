@@ -1,5 +1,6 @@
 <template lang="pug">
   radial-menu(
+    :value="true"
     :menu-items="menuItems"
   )
 </template>
@@ -10,6 +11,7 @@ export default {
   name: 'NavMenu',
   components: { RadialMenu },
   props: {
+
     menuItems: {
       type: Array,
       default: () => ([])
