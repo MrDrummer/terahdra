@@ -49,7 +49,7 @@ export default {
           title: 'Stats',
           caption: 'Stats on the growth of my channels',
           icon: 'fas fa-chart-line',
-          link: '/https://drive.google.com/file/d/1UJfyi6Puty32FqWBOFLjRCNt-oNTRHdK/view',
+          link: 'https://drive.google.com/file/d/1UJfyi6Puty32FqWBOFLjRCNt-oNTRHdK/view',
           external: true
         },
         {
